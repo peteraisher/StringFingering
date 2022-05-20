@@ -12,6 +12,17 @@
 #include "FingeringSequence.hpp"
 #include <stdio.h>
 #include <array>
+#include <string>
+
+void printNoteNameAndOctave(uint8_t pitch) {
+  std::string names[12] = {"C", "C#", "D", "D#", "E", "F",
+                           "F#", "G", "G#", "A", "A#", "B"};
+  std::string name = names[pitch % 12];
+  int octave = pitch / 12;
+  octave -= 1;
+
+  printf("%s%i", name.c_str(), octave);
+}
 
 int main(int argc, const char * argv[]) {
   auto delegate = string_fingering::BasicDelegate();
@@ -33,7 +44,9 @@ int main(int argc, const char * argv[]) {
   auto pitches = notes.getPitches();
   printf("note  f  s\n");
   for (int i = 0; i < count; ++i) {
-    printf("%3d  %2d %2d\n", pitches[i], fingering.getFinger(i), fingering.getString(i));
+    printf(" ");
+    printNoteNameAndOctave(pitches[i]);
+    printf("  %2d %2d\n", fingering.getFinger(i), fingering.getString(i));
   }
 
   return 0;
