@@ -11,6 +11,8 @@
 #include <cstring>
 #include <vector>
 
+namespace string_fingering {
+
 class SingleNoteSequence {
   std::vector<uint8_t> pitches {};
  public:
@@ -23,5 +25,7 @@ class SingleNoteSequence {
   inline const std::vector<uint8_t>& getPitches() const {return pitches;}
   inline const uint8_t& operator[] (size_t i) const {return pitches[i];}
 };
+
+}   // namespace string_fingering
 
 #endif /* SingleNoteSequence_hpp */

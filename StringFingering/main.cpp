@@ -5,7 +5,7 @@
 //  Created by Peter Aisher on 28.09.21.
 //
 
-#include "StringFingeringOptimizer.hpp"
+#include "Optimizer.hpp"
 #include "BasicDelegate.hpp"
 #include "SingleNoteSequence.hpp"
 #include "FingeringSequence.hpp"
@@ -13,9 +13,9 @@
 #include <array>
 
 int main(int argc, const char * argv[]) {
-  auto delegate = BasicDelegate();
+  auto delegate = string_fingering::BasicDelegate();
 
-  StringFingeringOptimizer<> sf = StringFingeringOptimizer<>(&delegate);
+  auto sf = string_fingering::Optimizer<>(&delegate);
 
   std::vector<uint8_t> in_pitches {
     60, 62, 64, 65, 67, 69, 71, 72,
@@ -24,9 +24,9 @@ int main(int argc, const char * argv[]) {
     84, 79, 76, 72, 67, 72, 67, 64,
     60
   };
-  SingleNoteSequence notes = SingleNoteSequence(in_pitches);
+  auto notes = string_fingering::SingleNoteSequence(in_pitches);
 
-  FingeringSequence fingering = sf.calculate(notes);
+  auto fingering = sf.calculate(notes);
 
   size_t count = fingering.getCount();
   auto pitches = notes.getPitches();

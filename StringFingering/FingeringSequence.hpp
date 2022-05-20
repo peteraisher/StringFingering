@@ -12,6 +12,8 @@
 #include <cstring>
 #include <vector>
 
+namespace string_fingering {
+
 class FingeringSequence {
   std::vector<uint8_t> string;
   std::vector<uint8_t> finger;
@@ -38,5 +40,7 @@ class FingeringSequence {
   inline uint8_t getFinger(size_t index) {return finger[index];}
   inline size_t getCount() {return std::max(string.size(), finger.size());}
 };
+
+}   // namespace string_fingering
 
 #endif /* FingeringSequence_hpp */

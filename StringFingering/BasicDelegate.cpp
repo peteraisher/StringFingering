@@ -7,6 +7,8 @@
 
 #include "BasicDelegate.hpp"
 
+namespace string_fingering {
+
 uint8_t BasicDelegate::openStringPitch(int string) {
   static constexpr uint8_t open_pitches[4] = {76, 69, 62, 55};
   return open_pitches[string];
@@ -115,3 +117,5 @@ BasicDelegate::score_t BasicDelegate::positionTooLowPenalty() const {
 BasicDelegate::score_t BasicDelegate::singleStringCrossPenalty() const {
   return kPenaltyLow * 2;
 }
+
+}   // namespace string_fingering

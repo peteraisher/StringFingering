@@ -8,9 +8,11 @@
 #ifndef BasicDelegate_hpp
 #define BasicDelegate_hpp
 
-#include "StringFingeringOptimizer.hpp"
+#include "Optimizer.hpp"
 
-class BasicDelegate : public StringFingeringOptimizerDelegate {
+namespace string_fingering {
+
+class BasicDelegate : public OptimizerDelegate {
   enum {
     kPenaltyLow = 1,
     kPenaltyMedium = 50,
@@ -83,5 +85,6 @@ private:
   }
 };
 
+}   // namespace string_fingering
 
 #endif /* BasicDelegate_hpp */

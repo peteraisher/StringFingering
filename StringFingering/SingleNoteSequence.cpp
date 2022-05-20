@@ -6,3 +6,7 @@
 //
 
 #include "SingleNoteSequence.hpp"
+
+namespace string_fingering {
+
+}   // namespace string_fingering

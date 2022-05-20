@@ -1,14 +1,16 @@
 //
-//  StringFingeringOptimizer.cpp
+//  Optimizer.cpp
 //  StringFingering
 //
 //  Created by Peter Aisher on 29.09.21.
 //
 
-#include "StringFingeringOptimizer.hpp"
+#include "Optimizer.hpp"
+
+namespace string_fingering {
 
 template <int kStringCount, int kPositionCount>
-FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calculate(const SingleNoteSequence& sequence) {
+FingeringSequence Optimizer<kStringCount, kPositionCount>::calculate(const SingleNoteSequence& sequence) {
 
   auto pitches = sequence.getPitches();
   auto count = sequence.getCount();
@@ -81,7 +83,6 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
           }
           for (int fPrev = 0; fPrev < kFingerCount; ++fPrev) {
             // compare position difference to finger difference
-
             string_t stringDiff = s - sPrev;
             score_t fingerScore = stringScore
               + delegate->fingerChangePenalty(posPrev, pos, fPrev, f, stringDiff)
@@ -106,68 +107,6 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
 
   } // end for i
 
-//  for (int i = 1; i < count; ++i) {
-//
-//    delegate->nextNote();
-//    
-//    int current = i & 1;
-//    int prev = current ^ 1;
-//
-//    pitch = pitches[i];
-//
-//    for (int s = 0; s < kStringCount; ++s) {
-//      position_t pos = pitch - openStringPitches[s];
-//      if (pos < 0) {
-//        positions[current][s] = -1;
-//        for (int f = 0; f < kFingerCount; ++f) {
-//          scores[current][s][f] = kPenaltyNever;
-//          map[i][s][f] = -1;
-//        }
-//        continue;
-//      }
-//      positions[current][s] = pos;
-//
-//      for (int f = 0; f < kFingerCount; ++f) {
-//        score_t rawScore = delegate->rawPositionScore(pos, s, f);
-//        string_t best_string = -1;
-//        finger_t best_finger = -1;
-//        score_t best_score = kPenaltyMax;
-//        for (int sPrev = 0; sPrev < kStringCount; ++sPrev) {
-//          position_t posPrev = positions[prev][sPrev];
-//          if (posPrev < 0) {
-//            continue;
-//          }
-//          string_t stringDiff = s - sPrev;
-//          score_t stringScore = delegate->stringCrossPenalty(stringDiff) + rawScore;
-//          if (stringScore > best_score) {
-//            continue;
-//          }
-//          for (int fPrev = 0; fPrev < kFingerCount; ++fPrev) {
-//            // compare position difference to finger difference
-//
-//            score_t fingerScore = stringScore
-//              + delegate->fingerChangePenalty(posPrev, pos, fPrev, f,
-//                                              stringDiff)
-//              + scores[prev][sPrev][fPrev];
-//            if (fingerScore < best_score) {
-//              best_score = fingerScore;
-//              best_string = sPrev;
-//              best_finger = fPrev;
-//            }
-//          } // end for fPrev
-//        } // end for sPrev
-//        if (best_string == -1
-//            || best_finger == -1
-//            || best_score == kPenaltyMax) {
-//          best_score = kPenaltyNever;
-//        }
-//        map_t prev_pointer = (best_finger << kStringBits) | best_string;
-//        scores[current][s][f] = best_score;
-//        map[i][s][f] = prev_pointer;
-//      } // end for f
-//    } // end for s
-//
-//  } // end for i
   // now have map complete and can trace back to find best set of strings and fingerings
   string_t best_string = -1;
   finger_t best_finger = -1;
@@ -194,5 +133,8 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
   result.setString(0, best_string);
   return result;
 }
-//template<> class StringFingeringOptimizer<4, 32>;
-template FingeringSequence StringFingeringOptimizer<4, 32>::calculate(const SingleNoteSequence& sequence);
+//template<> class Optimizer<4, 32>;
+template FingeringSequence
+Optimizer<4, 32>::calculate(const SingleNoteSequence& sequence);
+
+}   // namespace string_fingering

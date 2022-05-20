@@ -1,5 +1,5 @@
 //
-//  StringFingeringOptimizer.hpp
+//  Optimizer.hpp
 //  StringFingering
 //
 //  Created by Peter Aisher on 29.09.21.
@@ -14,9 +14,9 @@
 #include <cstdint>
 #include <limits>
 
+namespace string_fingering {
 
-
-class StringFingeringOptimizerDelegate {
+class OptimizerDelegate {
 public:
   typedef int32_t score_t;
   typedef int8_t position_t;
@@ -40,14 +40,14 @@ public:
 };
 
 template<int kNumStrings = 4, int kPositionCount = 32>
-class StringFingeringOptimizer {
+class Optimizer {
 public:
-  using score_t = StringFingeringOptimizerDelegate::score_t;
-  using position_t = StringFingeringOptimizerDelegate::position_t;
-  using map_t = StringFingeringOptimizerDelegate::map_t;
-  using finger_t = StringFingeringOptimizerDelegate::finger_t;
-  using string_t = StringFingeringOptimizerDelegate::string_t;
-  StringFingeringOptimizer(StringFingeringOptimizerDelegate* delegate)
+  using score_t = OptimizerDelegate::score_t;
+  using position_t = OptimizerDelegate::position_t;
+  using map_t = OptimizerDelegate::map_t;
+  using finger_t = OptimizerDelegate::finger_t;
+  using string_t = OptimizerDelegate::string_t;
+  Optimizer(OptimizerDelegate* delegate)
   : delegate(delegate), kStringBits(0), kStringMask(1) {
     while (kNumStrings > kStringMask) {
       kStringMask <<= 1;
@@ -80,7 +80,9 @@ private:
     kPenaltyNever = 100000,
     kPenaltyMax = std::numeric_limits<score_t>::max()
   };
-  StringFingeringOptimizerDelegate* delegate;
+  OptimizerDelegate* delegate;
 };
+
+}   // namespace string_fingering
 
 #endif /* StringFingeringOptimizer_hpp */
