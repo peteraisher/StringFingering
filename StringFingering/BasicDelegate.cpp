@@ -10,7 +10,7 @@
 
 namespace string_fingering {
 
-uint8_t BasicDelegate::openStringPitch(int string) {
+uint8_t BasicDelegate::openStringPitch(size_t string) {
   static constexpr uint8_t open_pitches[4] = {76, 69, 62, 55};
   return open_pitches[string];
 }

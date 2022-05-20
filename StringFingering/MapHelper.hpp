@@ -19,6 +19,8 @@ class MapHelper {
   enum {
     kFingerCount = 5
   };
+  void fillFirstIndexWithInvalid(size_t stringCount);
+
  public:
   MapHelper(size_t noteCount, size_t stringCount);
   ~MapHelper();

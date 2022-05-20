@@ -9,9 +9,18 @@
 
 namespace string_fingering {
 
+void MapHelper::fillFirstIndexWithInvalid(size_t stringCount) {
+  for (size_t s = 0; s < stringCount; ++s) {
+    for (size_t f = 0; f < stringCount; ++f) {
+      value(0, s, f) = -1;
+    }
+  }
+}
+
 MapHelper::MapHelper(size_t noteCount, size_t stringCount)
 : stringCount(stringCount) {
   storage = new map_t[noteCount * stringCount * kFingerCount]();
+  fillFirstIndexWithInvalid(stringCount);
 }
 MapHelper::~MapHelper() {
   delete [] storage;

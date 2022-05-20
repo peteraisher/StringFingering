@@ -25,7 +25,7 @@ class BasicDelegate : public OptimizerDelegate {
     kPositionCount = 32
   };
 public:
-  virtual uint8_t openStringPitch(int string) override;
+  virtual uint8_t openStringPitch(size_t string) override;
   /// \note value is not assumed to be stable between calls with same parameter values
   virtual score_t rawPositionScore(position_t pos, string_t string,
                                    finger_t finger) override;
@@ -35,6 +35,7 @@ public:
   virtual score_t fingerChangePenalty(position_t startPos, position_t endPos,
                                       finger_t startFinger, finger_t endFinger,
                                       string_t stringDiff) override;
+  virtual score_t never() const override {return kPenaltyNever;}
   virtual void nextNote() override;
   virtual void reset() override;
   virtual int stringCount() override;
