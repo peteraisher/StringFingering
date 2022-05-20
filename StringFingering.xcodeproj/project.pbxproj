@@ -11,6 +11,7 @@
 		819C739D2703767400204F42 /* StringFingering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C739B2703767400204F42 /* StringFingering.cpp */; };
 		819C73A02703838600204F42 /* SingleNoteSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C739E2703838600204F42 /* SingleNoteSequence.cpp */; };
 		819C73A3270383C100204F42 /* FingeringSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C73A1270383C100204F42 /* FingeringSequence.cpp */; };
+		819C73A62704480700204F42 /* StringFingeringOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C73A42704480600204F42 /* StringFingeringOptimizer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,8 @@
 		819C739F2703838600204F42 /* SingleNoteSequence.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SingleNoteSequence.hpp; sourceTree = "<group>"; };
 		819C73A1270383C100204F42 /* FingeringSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FingeringSequence.cpp; sourceTree = "<group>"; };
 		819C73A2270383C100204F42 /* FingeringSequence.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FingeringSequence.hpp; sourceTree = "<group>"; };
+		819C73A42704480600204F42 /* StringFingeringOptimizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StringFingeringOptimizer.cpp; sourceTree = "<group>"; };
+		819C73A52704480700204F42 /* StringFingeringOptimizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringFingeringOptimizer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,12 +69,14 @@
 		819C73932703764900204F42 /* StringFingering */ = {
 			isa = PBXGroup;
 			children = (
-				819C739B2703767400204F42 /* StringFingering.cpp */,
 				819C739C2703767400204F42 /* StringFingering.hpp */,
-				819C73A1270383C100204F42 /* FingeringSequence.cpp */,
+				819C739B2703767400204F42 /* StringFingering.cpp */,
+				819C73A52704480700204F42 /* StringFingeringOptimizer.hpp */,
+				819C73A42704480600204F42 /* StringFingeringOptimizer.cpp */,
 				819C73A2270383C100204F42 /* FingeringSequence.hpp */,
-				819C739E2703838600204F42 /* SingleNoteSequence.cpp */,
+				819C73A1270383C100204F42 /* FingeringSequence.cpp */,
 				819C739F2703838600204F42 /* SingleNoteSequence.hpp */,
+				819C739E2703838600204F42 /* SingleNoteSequence.cpp */,
 				819C73942703764900204F42 /* main.cpp */,
 			);
 			path = StringFingering;
@@ -138,6 +143,7 @@
 				819C73A02703838600204F42 /* SingleNoteSequence.cpp in Sources */,
 				819C739D2703767400204F42 /* StringFingering.cpp in Sources */,
 				819C73952703764900204F42 /* main.cpp in Sources */,
+				819C73A62704480700204F42 /* StringFingeringOptimizer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
