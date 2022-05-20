@@ -37,7 +37,6 @@ public:
   virtual void reset() = 0;
 };
 
-template<int kNumStrings = 4>
 class Optimizer {
 public:
   Optimizer(OptimizerDelegate* delegate);

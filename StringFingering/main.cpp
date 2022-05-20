@@ -16,7 +16,7 @@
 int main(int argc, const char * argv[]) {
   auto delegate = string_fingering::BasicDelegate();
 
-  auto sf = string_fingering::Optimizer<>(&delegate);
+  auto sf = string_fingering::Optimizer(&delegate);
 
   std::vector<uint8_t> in_pitches {
     60, 62, 64, 65, 67, 69, 71, 72,
