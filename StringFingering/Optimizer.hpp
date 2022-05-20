@@ -32,36 +32,21 @@ public:
   virtual score_t fingerChangePenalty(position_t startPos, position_t endPos,
                                       finger_t startFinger, finger_t endFinger,
                                       string_t stringDiff) = 0;
+  virtual int stringCount() = 0;
   virtual void nextNote() = 0;
   virtual void reset() = 0;
 };
 
-template<int kNumStrings = 4, int kPositionCount = 32>
+template<int kNumStrings = 4>
 class Optimizer {
 public:
-  Optimizer(OptimizerDelegate* delegate)
-  : delegate(delegate), kStringBits(0), kStringMask(1) {
-    while (kNumStrings > kStringMask) {
-      kStringMask <<= 1;
-      ++kStringBits;
-    }
-    --kStringMask;
-    populateOpenStringPitches();
-  }
-
+  Optimizer(OptimizerDelegate* delegate);
   FingeringSequence calculate(const SingleNoteSequence& sequence);
 
 private:
 
-  void populateOpenStringPitches() {
-    for (int i = 0; i < kNumStrings; ++i) {
-      openStringPitches[i] = delegate->openStringPitch(i);
-    }
-  }
-
   int kStringBits;
   int kStringMask;
-  uint8_t openStringPitches[kNumStrings];
   enum {
     kFingerCount = 5,
   };

@@ -83,6 +83,8 @@ BasicDelegate::fingerChangePenalty(position_t startPos, position_t endPos,
 void BasicDelegate::reset() {}
 void BasicDelegate::nextNote() {}
 
+int BasicDelegate::stringCount() {return 4;}
+
 position_t BasicDelegate::minDistanceToUpperFinger(finger_t finger) const {
   static const position_t distance[5] = {6, 5, 3, 1, 0};
   return distance[finger];
@@ -103,6 +105,28 @@ position_t BasicDelegate::upperBoutCutoff() const {
   return 8;
 }
 
+position_t BasicDelegate::maxComfortableFingerChange(finger_t start,
+                                                     finger_t end) const {
+  if (!start) return kPositionCount;
+  if (!end)   return 0;
+  finger_t diff = end - start;
+  switch (diff) {
+    case -3:  return -5;
+    case -2:  return -3;
+    case -1:  return -1;
+    case  0:  return  0;
+    case  1:  return  2;
+    case  2:  return  4;
+    case  3:  return  5;
+  }
+  return -kPositionCount;
+}
+
+position_t BasicDelegate::minComfortableFingerChange(finger_t start,
+                                                     finger_t end) const {
+  return -maxComfortableFingerChange(end, start);
+}
+
 score_t BasicDelegate::handStraddlingBoutPenalty() const {
   return (3 * kPenaltyMedium) / 2;
 }
@@ -118,5 +142,12 @@ score_t BasicDelegate::positionTooLowPenalty() const {
 score_t BasicDelegate::singleStringCrossPenalty() const {
   return kPenaltyLow * 2;
 }
+score_t BasicDelegate::shiftPenalty(position_t shiftAmount) const {
+  if (shiftAmount < 0)
+    shiftAmount = -shiftAmount;
+  return basicShiftPenalty() + perSemitoneShiftPenalty() * shiftAmount;
+}
+score_t BasicDelegate::basicShiftPenalty() const {return kPenaltyMedium;}
+score_t BasicDelegate::perSemitoneShiftPenalty() const {return kPenaltyLow;}
 
 }   // namespace string_fingering

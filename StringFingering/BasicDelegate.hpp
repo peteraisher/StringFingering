@@ -37,6 +37,7 @@ public:
                                       string_t stringDiff) override;
   virtual void nextNote() override;
   virtual void reset() override;
+  virtual int stringCount() override;
 
 private:
 
@@ -46,44 +47,17 @@ private:
   position_t maxDistanceToLowerFinger(finger_t finger) const;
   position_t upperBoutCutoff() const;
 
+  position_t maxComfortableFingerChange(finger_t start, finger_t end) const;
+  position_t minComfortableFingerChange(finger_t start, finger_t end) const;
+
   score_t handStraddlingBoutPenalty() const;
   score_t handBeyondBoutPenalty() const;
   score_t openStringPenalty() const;
   score_t positionTooLowPenalty() const;
   score_t singleStringCrossPenalty() const;
-
-  score_t shiftPenalty(position_t shiftAmount) {
-    if (shiftAmount < 0)
-      shiftAmount = -shiftAmount;
-    return basicShiftPenalty() + perSemitoneShiftPenalty() * shiftAmount;
-  }
-
-  score_t basicShiftPenalty() {return kPenaltyMedium;}
-  score_t perSemitoneShiftPenalty() {return kPenaltyLow;}
-
-  position_t maxComfortableFingerChange(finger_t start, finger_t end) {
-    if (!start)
-      return kPositionCount;
-    if (!end) return 0;
-    if (!start || !end) {
-      return kPositionCount; // to or from open string
-    }
-    finger_t diff = end - start;
-    switch (diff) {
-      case -3:  return -5;
-      case -2:  return -3;
-      case -1:  return -1;
-      case  0:  return  0;
-      case  1:  return  2;
-      case  2:  return  4;
-      case  3:  return  5;
-    }
-    return -kPositionCount;
-  }
-
-  position_t minComfortableFingerChange(finger_t start, finger_t end) {
-    return -maxComfortableFingerChange(end, start);
-  }
+  score_t shiftPenalty(position_t shiftAmount) const;
+  score_t basicShiftPenalty() const;
+  score_t perSemitoneShiftPenalty() const;
 };
 
 }   // namespace string_fingering

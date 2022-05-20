@@ -10,8 +10,19 @@
 
 namespace string_fingering {
 
-template <int kStringCount, int kPositionCount>
-FingeringSequence Optimizer<kStringCount, kPositionCount>::calculate(const SingleNoteSequence& sequence) {
+template<int kNumStrings>
+Optimizer<kNumStrings>::Optimizer(OptimizerDelegate* delegate)
+: delegate(delegate), kStringBits(0), kStringMask(1) {
+  int stringCount = delegate->stringCount();
+  while (stringCount > kStringMask) {
+    kStringMask <<= 1;
+    ++kStringBits;
+  }
+  --kStringMask;
+}
+
+template <int kStringCount>
+FingeringSequence Optimizer<kStringCount>::calculate(const SingleNoteSequence& sequence) {
 
   auto pitches = sequence.getPitches();
   auto count = sequence.getCount();
@@ -31,7 +42,7 @@ FingeringSequence Optimizer<kStringCount, kPositionCount>::calculate(const Singl
 
   // set raw scores for first notes
   for (int string = 0; string < kStringCount; ++string) {
-    position_t pos = pitch - openStringPitches[string];
+    position_t pos = pitch - delegate->openStringPitch(string);
     if (pos < 0) {
       positions[0][string] = -1;
       for (int f = 0; f < kFingerCount; ++f) {
@@ -135,7 +146,6 @@ FingeringSequence Optimizer<kStringCount, kPositionCount>::calculate(const Singl
   return result;
 }
 //template<> class Optimizer<4, 32>;
-template FingeringSequence
-Optimizer<4, 32>::calculate(const SingleNoteSequence& sequence);
+template class Optimizer<4>;
 
 }   // namespace string_fingering
