@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  BasicDelegate.cpp
 //  StringFingering
@@ -14,7 +15,7 @@ uint8_t BasicDelegate::openStringPitch(int string) {
   return open_pitches[string];
 }
 
-BasicDelegate::score_t BasicDelegate::rawPositionScore(position_t pos, string_t string, finger_t finger) {
+score_t BasicDelegate::rawPositionScore(position_t pos, string_t string, finger_t finger) {
   if (pos == 0) {
     if (finger) { return kPenaltyNever; }
     return openStringPenalty();
@@ -52,7 +53,7 @@ BasicDelegate::score_t BasicDelegate::rawPositionScore(position_t pos, string_t 
   return 0;
 }
 
-BasicDelegate::score_t BasicDelegate::stringCrossPenalty(string_t diff) {
+score_t BasicDelegate::stringCrossPenalty(string_t diff) {
   if (diff < 0)
     diff = -diff;
   if (diff) {
@@ -62,7 +63,7 @@ BasicDelegate::score_t BasicDelegate::stringCrossPenalty(string_t diff) {
   }
 }
 
-BasicDelegate::score_t
+score_t
 BasicDelegate::fingerChangePenalty(position_t startPos, position_t endPos,
                                    finger_t startFinger, finger_t endFinger,
                                    string_t stringDiff) {
@@ -82,39 +83,39 @@ BasicDelegate::fingerChangePenalty(position_t startPos, position_t endPos,
 void BasicDelegate::reset() {}
 void BasicDelegate::nextNote() {}
 
-BasicDelegate::position_t BasicDelegate::minDistanceToUpperFinger(finger_t finger) const {
+position_t BasicDelegate::minDistanceToUpperFinger(finger_t finger) const {
   static const position_t distance[5] = {6, 5, 3, 1, 0};
   return distance[finger];
 }
-BasicDelegate::position_t BasicDelegate::maxDistanceToUpperFinger(finger_t finger) const {
+position_t BasicDelegate::maxDistanceToUpperFinger(finger_t finger) const {
   static const position_t distance[5] = {kPositionCount, 5, 4, 2, 0};
   return distance[finger];
 }
-BasicDelegate::position_t BasicDelegate::minDistanceToLowerFinger(finger_t finger) const {
+position_t BasicDelegate::minDistanceToLowerFinger(finger_t finger) const {
   static const position_t distance[5] = {1, 0, -2, -4, -5};
   return distance[finger];
 }
-BasicDelegate::position_t BasicDelegate::maxDistanceToLowerFinger(finger_t finger) const {
+position_t BasicDelegate::maxDistanceToLowerFinger(finger_t finger) const {
   static const position_t distance[5] = {kPositionCount, 0, -1, -3, -5};
   return distance[finger];
 }
-BasicDelegate::position_t BasicDelegate::upperBoutCutoff() const {
+position_t BasicDelegate::upperBoutCutoff() const {
   return 8;
 }
 
-BasicDelegate::score_t BasicDelegate::handStraddlingBoutPenalty() const {
+score_t BasicDelegate::handStraddlingBoutPenalty() const {
   return (3 * kPenaltyMedium) / 2;
 }
-BasicDelegate::score_t BasicDelegate::handBeyondBoutPenalty() const {
+score_t BasicDelegate::handBeyondBoutPenalty() const {
   return 2 * kPenaltyMedium;
 }
-BasicDelegate::score_t BasicDelegate::openStringPenalty() const {
+score_t BasicDelegate::openStringPenalty() const {
   return kPenaltyMedium;
 }
-BasicDelegate::score_t BasicDelegate::positionTooLowPenalty() const {
+score_t BasicDelegate::positionTooLowPenalty() const {
   return kPenaltyMedium;
 }
-BasicDelegate::score_t BasicDelegate::singleStringCrossPenalty() const {
+score_t BasicDelegate::singleStringCrossPenalty() const {
   return kPenaltyLow * 2;
 }
 

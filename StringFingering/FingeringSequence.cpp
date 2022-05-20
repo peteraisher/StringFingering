@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  FingeringSequence.cpp
 //  StringFingering

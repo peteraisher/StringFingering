@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  Optimizer.hpp
 //  StringFingering
@@ -10,6 +11,7 @@
 
 #include "SingleNoteSequence.hpp"
 #include "FingeringSequence.hpp"
+#include "types.h"
 
 #include <cstdint>
 #include <limits>
@@ -18,11 +20,6 @@ namespace string_fingering {
 
 class OptimizerDelegate {
 public:
-  typedef int32_t score_t;
-  typedef int8_t position_t;
-  typedef int8_t map_t;
-  typedef int8_t finger_t;
-  typedef int8_t string_t;
 
   /// \note called once per string upon initialization and cached
   virtual uint8_t openStringPitch(int string) = 0;
@@ -42,11 +39,6 @@ public:
 template<int kNumStrings = 4, int kPositionCount = 32>
 class Optimizer {
 public:
-  using score_t = OptimizerDelegate::score_t;
-  using position_t = OptimizerDelegate::position_t;
-  using map_t = OptimizerDelegate::map_t;
-  using finger_t = OptimizerDelegate::finger_t;
-  using string_t = OptimizerDelegate::string_t;
   Optimizer(OptimizerDelegate* delegate)
   : delegate(delegate), kStringBits(0), kStringMask(1) {
     while (kNumStrings > kStringMask) {
