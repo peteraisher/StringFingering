@@ -15,8 +15,8 @@ namespace string_fingering {
 
 Optimizer::Optimizer(OptimizerDelegate* delegate)
 : delegate(delegate), kStringBits(0), kStringMask(1) {
-  int stringCount = delegate->stringCount();
-  while (stringCount > kStringMask) {
+  kStringCount = delegate->stringCount();
+  while (kStringCount > kStringMask) {
     kStringMask <<= 1;
     ++kStringBits;
   }
@@ -29,11 +29,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
   auto pitches = sequence.getPitches();
   auto count = sequence.getCount();
 
-  int kStringCount = delegate->stringCount();
-
   auto scores = ScoreCacheHelper(kStringCount);
-
-//  auto scores = new score_t [kStringCount][2][kFingerCount]();
   auto positions = PositionCacheHelper(kStringCount);
   auto map = new map_t [count*kStringCount][kFingerCount];
 
@@ -51,17 +47,11 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
     position_t pos = pitch - delegate->openStringPitch(string);
     if (pos < 0) {
       positions.current(string) = -1;
-      for (int f = 0; f < kFingerCount; ++f) {
-        scores.current(string, f) = kPenaltyNever;
-      }
-      continue;
+    } else {
+      positions.current(string) = pos;
     }
-    positions.current(string) = pos;
-    for (int finger = 0; finger < 5; ++finger) {
+    for (int finger = 0; finger < kFingerCount; ++finger) {
       scores.current(string, finger) = delegate->rawPositionScore(pos, string, finger);
-    }
-    if (pos) { // TODO: is this needed?
-      scores.current(string, 0) = kPenaltyNever;
     }
   }
 

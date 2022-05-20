@@ -46,6 +46,7 @@ private:
 
   int kStringBits;
   int kStringMask;
+  size_t kStringCount;
   enum {
     kFingerCount = 5,
   };
