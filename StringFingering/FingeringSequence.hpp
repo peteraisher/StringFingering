@@ -10,38 +10,33 @@
 
 #include <cstdint>
 #include <cstring>
+#include <vector>
 
 class FingeringSequence {
+  std::vector<uint8_t> string;
+  std::vector<uint8_t> finger;
  public:
-  FingeringSequence(int count, uint8_t* string_in, uint8_t* finger_in): count(count) {
-    string = new uint8_t[count];
-    finger = new uint8_t[count];
-    if (string_in)
-      memcpy(string, string_in, count);
-    if (finger_in)
-      memcpy(finger, finger_in, count);
+  FingeringSequence(const std::vector<uint8_t>& string_in,
+                    const std::vector<uint8_t>& finger_in) {
+    std::copy(string_in.begin(), string_in.end(), std::back_inserter(string));
+    std::copy(finger_in.begin(), finger_in.end(), std::back_inserter(finger));
   }
 
-  ~FingeringSequence() {
-    delete [] string;
-    delete [] finger;
+  explicit FingeringSequence(size_t count) {
+    string.resize(count);
+    finger.resize(count);
   }
 
-  inline void setString(int index, uint8_t value) {
+  inline void setString(size_t index, uint8_t value) {
     string[index] = value;
   }
-  inline void setFinger(int index, uint8_t value) {
+  inline void setFinger(size_t index, uint8_t value) {
     finger[index] = value;
   }
 
-  inline uint8_t getString(int index) {return string[index];}
-  inline uint8_t getFinger(int index) {return finger[index];}
-  inline int getCount() {return count;}
-
- private:
-  int count;
-  uint8_t* string;
-  uint8_t* finger;
+  inline uint8_t getString(size_t index) {return string[index];}
+  inline uint8_t getFinger(size_t index) {return finger[index];}
+  inline size_t getCount() {return std::max(string.size(), finger.size());}
 };
 
 #endif /* FingeringSequence_hpp */

@@ -22,7 +22,8 @@ public:
     initRawPositionScores();
   }
 
-  FingeringSequence optimalFingeringFor(SingleNoteSequence noteSequence);
+  FingeringSequence
+  optimalFingeringFor(const SingleNoteSequence& noteSequence);
 
 private:
 

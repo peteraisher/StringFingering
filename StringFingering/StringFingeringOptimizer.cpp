@@ -8,10 +8,10 @@
 #include "StringFingeringOptimizer.hpp"
 
 template <int kStringCount, int kPositionCount>
-FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calculate() {
-  int count = sequence.getCount();
+FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calculate(const SingleNoteSequence& sequence) {
 
-  uint8_t* pitches = sequence.getPitches();
+  auto pitches = sequence.getPitches();
+  auto count = sequence.getCount();
 
   score_t scores[2][kStringCount][kFingerCount] = {};
   position_t positions[2][kStringCount] = {};
@@ -122,7 +122,7 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
       }
     }
   }
-  FingeringSequence result = FingeringSequence(count, nullptr, nullptr);
+  FingeringSequence result = FingeringSequence(count);
   for (int i = count - 1; i > 0; --i) {
     result.setFinger(i, best_finger);
     result.setString(i, best_string);

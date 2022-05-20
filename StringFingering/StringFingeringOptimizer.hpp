@@ -46,9 +46,8 @@ public:
   using map_t = StringFingeringOptimizerDelegate::map_t;
   using finger_t = StringFingeringOptimizerDelegate::finger_t;
   using string_t = StringFingeringOptimizerDelegate::string_t;
-  StringFingeringOptimizer(SingleNoteSequence sequence,
-                           StringFingeringOptimizerDelegate* delegate)
-  : sequence(sequence), delegate(delegate), kStringBits(0), kStringMask(1) {
+  StringFingeringOptimizer(StringFingeringOptimizerDelegate* delegate)
+  : delegate(delegate), kStringBits(0), kStringMask(1) {
     while (kNumStrings <= kStringMask) {
       kStringMask <<= 1;
       ++kStringBits;
@@ -56,7 +55,7 @@ public:
     --kStringMask;
   }
 
-  FingeringSequence calculate();
+  FingeringSequence calculate(const SingleNoteSequence& sequence);
 
 private:
 
@@ -79,7 +78,6 @@ private:
     kPenaltyNever = 100000,
     kPenaltyMax = std::numeric_limits<score_t>::max()
   };
-  SingleNoteSequence sequence;
   StringFingeringOptimizerDelegate* delegate;
 };
 

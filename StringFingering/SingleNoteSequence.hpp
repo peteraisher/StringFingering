@@ -9,20 +9,19 @@
 #define SingleNoteSequence_hpp
 #include <cstdint>
 #include <cstring>
+#include <vector>
 
 class SingleNoteSequence {
+  std::vector<uint8_t> pitches {};
  public:
-  SingleNoteSequence(int count, uint8_t* pitches_in) : count(count) {
-    pitches = new uint8_t[count];
-    if (pitches_in)
-      memcpy(pitches, pitches_in, count);
+
+  SingleNoteSequence(std::vector<uint8_t> pitches_in) {
+    std::copy(pitches_in.begin(), pitches_in.end(),
+              std::back_inserter(pitches));
   }
-  ~SingleNoteSequence() {}
-  inline int getCount() {return count;}
-  inline uint8_t* getPitches() {return pitches;}
- private:
-  int count;
-  uint8_t* pitches;
+  inline size_t getCount() const {return pitches.size();}
+  inline const std::vector<uint8_t>& getPitches() const {return pitches;}
+  inline const uint8_t& operator[] (size_t i) const {return pitches[i];}
 };
 
 #endif /* SingleNoteSequence_hpp */

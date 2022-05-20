@@ -10,10 +10,11 @@
 #include <stdio.h>
 
 
-FingeringSequence StringFingering::optimalFingeringFor(SingleNoteSequence noteSequence) {
-  int count = noteSequence.getCount();
+FingeringSequence
+StringFingering::optimalFingeringFor(const SingleNoteSequence& noteSequence) {
 
-  uint8_t* pitches = noteSequence.getPitches();
+  auto pitches = noteSequence.getPitches();
+  size_t count = noteSequence.getCount();
 
   score_t scores[2][kStringCount][kFingerCount] = {};
   position_t positions[2][kStringCount] = {};
@@ -119,8 +120,8 @@ FingeringSequence StringFingering::optimalFingeringFor(SingleNoteSequence noteSe
       }
     }
   }
-  FingeringSequence result = FingeringSequence(count, nullptr, nullptr);
-  for (int i = count - 1; i > 0; --i) {
+  FingeringSequence result = FingeringSequence(count);
+  for (size_t i = count - 1; i > 0; --i) {
     result.setFinger(i, best_finger);
     result.setString(i, best_string);
     map_t m = map[i][best_string][best_finger];
