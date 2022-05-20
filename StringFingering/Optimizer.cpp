@@ -7,6 +7,9 @@
 //
 
 #include "Optimizer.hpp"
+#include "ScoreCacheHelper.hpp"
+#include "PositionCacheHelper.hpp"
+#include <vector>
 
 namespace string_fingering {
 
@@ -20,6 +23,7 @@ Optimizer::Optimizer(OptimizerDelegate* delegate)
   --kStringMask;
 }
 
+
 FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
 
   auto pitches = sequence.getPitches();
@@ -27,8 +31,10 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
 
   int kStringCount = delegate->stringCount();
 
-  auto scores = new score_t [kStringCount][2][kFingerCount]();
-  auto positions = new position_t [kStringCount][2]();
+  auto scores = ScoreCacheHelper(kStringCount);
+
+//  auto scores = new score_t [kStringCount][2][kFingerCount]();
+  auto positions = PositionCacheHelper(kStringCount);
   auto map = new map_t [count*kStringCount][kFingerCount];
 
   uint8_t pitch = pitches[0];
@@ -44,40 +50,39 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
   for (int string = 0; string < kStringCount; ++string) {
     position_t pos = pitch - delegate->openStringPitch(string);
     if (pos < 0) {
-      positions[string][0] = -1;
+      positions.current(string) = -1;
       for (int f = 0; f < kFingerCount; ++f) {
-        scores[string][0][f] = kPenaltyNever;
+        scores.current(string, f) = kPenaltyNever;
       }
       continue;
     }
-    positions[string][0] = pos;
+    positions.current(string) = pos;
     for (int finger = 0; finger < 5; ++finger) {
-      scores[string][0][finger] = delegate->rawPositionScore(pos, string, finger);
+      scores.current(string, finger) = delegate->rawPositionScore(pos, string, finger);
     }
-    if (pos) {
-      scores[string][0][0] = kPenaltyNever;
+    if (pos) { // TODO: is this needed?
+      scores.current(string, 0) = kPenaltyNever;
     }
   }
 
   for (int i = 1; i < count; ++i) {
-
+    scores.next();
+    positions.next();
     delegate->nextNote();
-    int current = i & 1;
-    int prev = current ^ 1;
 
     pitch = pitches[i];
 
     for (int s = 0; s < kStringCount; ++s) {
       position_t pos = pitch - delegate->openStringPitch(s);
       if (pos < 0) {
-        positions[s][current] = -1;
+        positions.current(s) = -1;
         for (int f = 0; f < kFingerCount; ++f) {
-          scores[s][current][f] = kPenaltyNever;
+          scores.current(s, f) = kPenaltyNever;
           map[i * kStringCount + s][f] = -1;
         }
         continue;
       }
-      positions[s][current] = pos;
+      positions.current(s) = pos;
 
       for (int f = 0; f < kFingerCount; ++f) {
         score_t rawScore = delegate->rawPositionScore(pos, s, f);
@@ -85,7 +90,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
         finger_t best_finger = -1;
         score_t best_score = kPenaltyMax;
         for (int sPrev = 0; sPrev < kStringCount; ++sPrev) {
-          position_t posPrev = positions[sPrev][prev];
+          position_t posPrev = positions.previous(sPrev);
           if (posPrev < 0) {
             continue;
           }
@@ -98,7 +103,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
             string_t stringDiff = s - sPrev;
             score_t fingerScore = stringScore
               + delegate->fingerChangePenalty(posPrev, pos, fPrev, f, stringDiff)
-              + scores[sPrev][prev][fPrev];
+              + scores.previous(sPrev, fPrev);
             if (fingerScore < best_score) {
               best_score = fingerScore;
               best_string = sPrev;
@@ -112,7 +117,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
           best_score = kPenaltyNever;
         }
         map_t prev_pointer = (best_finger << kStringBits) | best_string;
-        scores[s][current][f] = best_score;
+        scores.current(s, f) = best_score;
         map[i * kStringCount + s][f] = prev_pointer;
       } // end for f
     } // end for s
@@ -123,11 +128,10 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
   string_t best_string = -1;
   finger_t best_finger = -1;
   score_t best_score = kPenaltyMax;
-  int last = (count & 1) ^ 1;
   for (int s = 0; s < kStringCount; ++s) {
     for (int f = 0; f < kFingerCount; ++f) {
-      if (scores[s][last][f] < best_score) {
-        best_score = scores[s][last][f];
+      if (scores.current(s, f) < best_score) {
+        best_score = scores.current(s, f);
         best_string = s;
         best_finger = f;
       }
