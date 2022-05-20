@@ -49,7 +49,7 @@ public:
   using string_t = StringFingeringOptimizerDelegate::string_t;
   StringFingeringOptimizer(StringFingeringOptimizerDelegate* delegate)
   : delegate(delegate), kStringBits(0), kStringMask(1) {
-    while (kNumStrings <= kStringMask) {
+    while (kNumStrings > kStringMask) {
       kStringMask <<= 1;
       ++kStringBits;
     }

@@ -12,8 +12,24 @@
 #include <stdio.h>
 #include <array>
 
+#include "StringFingering.hpp"
+
 int main(int argc, const char * argv[]) {
   auto delegate = BasicDelegate();
+  auto old = StringFingering();
+
+  for (int finger = 0; finger < 5; ++finger) {
+    for (int pos = 0; pos < 32; ++pos) {
+      for (int string = 0; string < 4; ++string) {
+        auto d = delegate.rawPositionScore(pos, string, finger);
+        auto o = old.rawPositionScore(pos, string, finger);
+        if (o != d) {
+          printf("mismatch: pos %i, str %i, finger %i\n", pos, string, finger);
+        }
+      }
+    }
+  }
+
   StringFingeringOptimizer<> sf = StringFingeringOptimizer<>(&delegate);
 
   std::vector<uint8_t> in_pitches {

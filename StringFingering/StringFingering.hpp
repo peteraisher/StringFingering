@@ -190,11 +190,13 @@ private:
     return 8;
   }
 
+public:
   inline score_t rawPositionScore(position_t pos, string_t string,
                                   finger_t finger) const {
     return mRawPositionScores[pos][string][finger];
   }
-
+  
+private:
   // TODO: this changes for different instruments
   inline uint8_t openStringPitch(string_t string) {
     static const uint8_t open_pitches[4] = {76, 69, 62, 55};
