@@ -5,14 +5,16 @@
 //  Created by Peter Aisher on 28.09.21.
 //
 
-#include "StringFingering.hpp"
+#include "StringFingeringOptimizer.hpp"
+#include "BasicDelegate.hpp"
 #include "SingleNoteSequence.hpp"
 #include "FingeringSequence.hpp"
 #include <stdio.h>
 #include <array>
 
 int main(int argc, const char * argv[]) {
-  StringFingering sf = StringFingering();
+  auto delegate = BasicDelegate();
+  StringFingeringOptimizer<> sf = StringFingeringOptimizer<>(&delegate);
 
   std::vector<uint8_t> in_pitches {
     60, 62, 64, 65, 67, 69, 71, 72,
@@ -23,7 +25,7 @@ int main(int argc, const char * argv[]) {
   };
   SingleNoteSequence notes = SingleNoteSequence(in_pitches);
 
-  FingeringSequence fingering = sf.optimalFingeringFor(notes);
+  FingeringSequence fingering = sf.calculate(notes);
 
   size_t count = fingering.getCount();
   auto pitches = notes.getPitches();

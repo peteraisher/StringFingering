@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		814D6D602837AAF100EDD669 /* BasicDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */; };
 		819C73952703764900204F42 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C73942703764900204F42 /* main.cpp */; };
 		819C739D2703767400204F42 /* StringFingering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C739B2703767400204F42 /* StringFingering.cpp */; };
 		819C73A02703838600204F42 /* SingleNoteSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C739E2703838600204F42 /* SingleNoteSequence.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicDelegate.cpp; sourceTree = "<group>"; };
+		814D6D5F2837AAF100EDD669 /* BasicDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicDelegate.hpp; sourceTree = "<group>"; };
 		819C73912703764900204F42 /* StringFingering */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StringFingering; sourceTree = BUILT_PRODUCTS_DIR; };
 		819C73942703764900204F42 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		819C739B2703767400204F42 /* StringFingering.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StringFingering.cpp; sourceTree = "<group>"; };
@@ -71,6 +74,8 @@
 			children = (
 				819C739C2703767400204F42 /* StringFingering.hpp */,
 				819C739B2703767400204F42 /* StringFingering.cpp */,
+				814D6D5F2837AAF100EDD669 /* BasicDelegate.hpp */,
+				814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */,
 				819C73A52704480700204F42 /* StringFingeringOptimizer.hpp */,
 				819C73A42704480600204F42 /* StringFingeringOptimizer.cpp */,
 				819C73A2270383C100204F42 /* FingeringSequence.hpp */,
@@ -144,6 +149,7 @@
 				819C739D2703767400204F42 /* StringFingering.cpp in Sources */,
 				819C73952703764900204F42 /* main.cpp in Sources */,
 				819C73A62704480700204F42 /* StringFingeringOptimizer.cpp in Sources */,
+				814D6D602837AAF100EDD669 /* BasicDelegate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

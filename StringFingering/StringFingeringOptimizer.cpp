@@ -123,7 +123,7 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
     }
   }
   FingeringSequence result = FingeringSequence(count);
-  for (int i = count - 1; i > 0; --i) {
+  for (size_t i = count - 1; i > 0; --i) {
     result.setFinger(i, best_finger);
     result.setString(i, best_string);
     map_t m = map[i][best_string][best_finger];
@@ -134,3 +134,5 @@ FingeringSequence StringFingeringOptimizer<kStringCount, kPositionCount>::calcul
   result.setString(0, best_string);
   return result;
 }
+//template<> class StringFingeringOptimizer<4, 32>;
+template FingeringSequence StringFingeringOptimizer<4, 32>::calculate(const SingleNoteSequence& sequence);

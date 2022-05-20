@@ -36,6 +36,7 @@ public:
                                       finger_t startFinger, finger_t endFinger,
                                       string_t stringDiff) = 0;
   virtual void nextNote() = 0;
+  virtual void reset() = 0;
 };
 
 template<int kNumStrings = 4, int kPositionCount = 32>
@@ -53,6 +54,7 @@ public:
       ++kStringBits;
     }
     --kStringMask;
+    populateOpenStringPitches();
   }
 
   FingeringSequence calculate(const SingleNoteSequence& sequence);
