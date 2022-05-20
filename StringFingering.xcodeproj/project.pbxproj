@@ -42,6 +42,7 @@
 		814D6D692838363200EDD669 /* MapHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapHelper.hpp; sourceTree = "<group>"; };
 		814D6D6B28383C2700EDD669 /* PathFinder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PathFinder.cpp; sourceTree = "<group>"; };
 		814D6D6C28383C2700EDD669 /* PathFinder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PathFinder.hpp; sourceTree = "<group>"; };
+		814D6D6F2838486E00EDD669 /* OptimizerDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OptimizerDelegate.hpp; sourceTree = "<group>"; };
 		819C73912703764900204F42 /* StringFingering */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StringFingering; sourceTree = BUILT_PRODUCTS_DIR; };
 		819C73942703764900204F42 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		819C739E2703838600204F42 /* SingleNoteSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SingleNoteSequence.cpp; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 				814D6D682838363200EDD669 /* MapHelper.cpp */,
 				814D6D5F2837AAF100EDD669 /* BasicDelegate.hpp */,
 				814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */,
+				814D6D6F2838486E00EDD669 /* OptimizerDelegate.hpp */,
 				819C73A52704480700204F42 /* Optimizer.hpp */,
 				819C73A42704480600204F42 /* Optimizer.cpp */,
 				814D6D6C28383C2700EDD669 /* PathFinder.hpp */,

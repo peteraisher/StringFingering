@@ -9,7 +9,7 @@
 #define PathFinder_hpp
 
 #include <cstddef>
-#include "Optimizer.hpp"
+#include "OptimizerDelegate.hpp"
 #include "MapHelper.hpp"
 #include "PositionCacheHelper.hpp"
 #include "ScoreCacheHelper.hpp"
@@ -29,6 +29,8 @@ class PathFinder {
   enum {
     kFingerCount = 5
   };
+  void markStringAsImpossibleForCurrentPitch(int s);
+  void advanceHelperVariables();
 public:
   PathFinder(size_t noteCount, OptimizerDelegate* delegate);
   void setFirstPitch(uint8_t pitch);

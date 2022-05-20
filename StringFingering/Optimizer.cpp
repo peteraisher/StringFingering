@@ -7,9 +7,6 @@
 //
 
 #include "Optimizer.hpp"
-#include "ScoreCacheHelper.hpp"
-#include "PositionCacheHelper.hpp"
-#include "MapHelper.hpp"
 #include "PathFinder.hpp"
 #include <vector>
 
