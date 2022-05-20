@@ -9,6 +9,7 @@
 #include "Optimizer.hpp"
 #include "ScoreCacheHelper.hpp"
 #include "PositionCacheHelper.hpp"
+#include "MapHelper.hpp"
 #include <vector>
 
 namespace string_fingering {
@@ -23,7 +24,6 @@ Optimizer::Optimizer(OptimizerDelegate* delegate)
   --kStringMask;
 }
 
-
 FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
 
   auto pitches = sequence.getPitches();
@@ -31,14 +31,14 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
 
   auto scores = ScoreCacheHelper(kStringCount);
   auto positions = PositionCacheHelper(kStringCount);
-  auto map = new map_t [count*kStringCount][kFingerCount];
+  auto map = MapHelper(count, kStringCount);
 
   uint8_t pitch = pitches[0];
 
   // first map elements are -1, no previous information
   for (int s = 0; s < kStringCount; ++s) {
     for (int f = 0; f < kStringCount; ++f) {
-      map[0*kStringCount + s][f] = -1;
+      map.value(0, s, f) = -1;
     }
   }
 
@@ -68,7 +68,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
         positions.current(s) = -1;
         for (int f = 0; f < kFingerCount; ++f) {
           scores.current(s, f) = kPenaltyNever;
-          map[i * kStringCount + s][f] = -1;
+          map.value(i, s, f) = -1;
         }
         continue;
       }
@@ -108,7 +108,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
         }
         map_t prev_pointer = (best_finger << kStringBits) | best_string;
         scores.current(s, f) = best_score;
-        map[i * kStringCount + s][f] = prev_pointer;
+        map.value(i, s, f) = prev_pointer;
       } // end for f
     } // end for s
 
@@ -131,7 +131,7 @@ FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
   for (size_t i = count - 1; i > 0; --i) {
     result.setFinger(i, best_finger);
     result.setString(i, best_string);
-    map_t m = map[i * kStringCount + best_string][best_finger];
+    map_t m = map.value(i, best_string, best_finger);
     best_string = m & kStringMask;
     best_finger = m >> kStringBits;
   }

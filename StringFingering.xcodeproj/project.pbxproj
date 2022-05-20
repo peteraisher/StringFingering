@@ -10,6 +10,7 @@
 		814D6D602837AAF100EDD669 /* BasicDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */; };
 		814D6D642837EEBB00EDD669 /* ScoreCacheHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814D6D622837EEBB00EDD669 /* ScoreCacheHelper.cpp */; };
 		814D6D672837F03900EDD669 /* PositionCacheHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814D6D652837F03900EDD669 /* PositionCacheHelper.cpp */; };
+		814D6D6A2838363200EDD669 /* MapHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814D6D682838363200EDD669 /* MapHelper.cpp */; };
 		819C73952703764900204F42 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C73942703764900204F42 /* main.cpp */; };
 		819C73A02703838600204F42 /* SingleNoteSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C739E2703838600204F42 /* SingleNoteSequence.cpp */; };
 		819C73A3270383C100204F42 /* FingeringSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819C73A1270383C100204F42 /* FingeringSequence.cpp */; };
@@ -36,6 +37,8 @@
 		814D6D632837EEBB00EDD669 /* ScoreCacheHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScoreCacheHelper.hpp; sourceTree = "<group>"; };
 		814D6D652837F03900EDD669 /* PositionCacheHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PositionCacheHelper.cpp; sourceTree = "<group>"; };
 		814D6D662837F03900EDD669 /* PositionCacheHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PositionCacheHelper.hpp; sourceTree = "<group>"; };
+		814D6D682838363200EDD669 /* MapHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MapHelper.cpp; sourceTree = "<group>"; };
+		814D6D692838363200EDD669 /* MapHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapHelper.hpp; sourceTree = "<group>"; };
 		819C73912703764900204F42 /* StringFingering */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StringFingering; sourceTree = BUILT_PRODUCTS_DIR; };
 		819C73942703764900204F42 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		819C739E2703838600204F42 /* SingleNoteSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SingleNoteSequence.cpp; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 				814D6D652837F03900EDD669 /* PositionCacheHelper.cpp */,
 				814D6D632837EEBB00EDD669 /* ScoreCacheHelper.hpp */,
 				814D6D622837EEBB00EDD669 /* ScoreCacheHelper.cpp */,
+				814D6D692838363200EDD669 /* MapHelper.hpp */,
+				814D6D682838363200EDD669 /* MapHelper.cpp */,
 				814D6D5F2837AAF100EDD669 /* BasicDelegate.hpp */,
 				814D6D5E2837AAF100EDD669 /* BasicDelegate.cpp */,
 				819C73A52704480700204F42 /* Optimizer.hpp */,
@@ -155,6 +160,7 @@
 				814D6D642837EEBB00EDD669 /* ScoreCacheHelper.cpp in Sources */,
 				819C73A02703838600204F42 /* SingleNoteSequence.cpp in Sources */,
 				819C73952703764900204F42 /* main.cpp in Sources */,
+				814D6D6A2838363200EDD669 /* MapHelper.cpp in Sources */,
 				814D6D672837F03900EDD669 /* PositionCacheHelper.cpp in Sources */,
 				819C73A62704480700204F42 /* Optimizer.cpp in Sources */,
 				814D6D602837AAF100EDD669 /* BasicDelegate.cpp in Sources */,
