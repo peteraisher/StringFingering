@@ -113,6 +113,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 819C73982703764900204F42 /* Build configuration list for PBXNativeTarget "StringFingering" */;
 			buildPhases = (
+				814D6D71283B865200EDD669 /* ShellScript */,
 				819C738D2703764900204F42 /* Sources */,
 				819C738E2703764900204F42 /* Frameworks */,
 				819C738F2703764900204F42 /* CopyFiles */,
@@ -157,6 +158,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		814D6D71283B865200EDD669 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/StringFingering/types.h",
+				"$(SRCROOT)/StringFingering/PositionCacheHelper.hpp",
+				"$(SRCROOT)/StringFingering/PositionCacheHelper.cpp",
+				"$(SRCROOT)/StringFingering/ScoreCacheHelper.hpp",
+				"$(SRCROOT)/StringFingering/ScoreCacheHelper.cpp",
+				"$(SRCROOT)/StringFingering/MapHelper.hpp",
+				"$(SRCROOT)/StringFingering/MapHelper.cpp",
+				"$(SRCROOT)/StringFingering/BasicDelegate.hpp",
+				"$(SRCROOT)/StringFingering/BasicDelegate.cpp",
+				"$(SRCROOT)/StringFingering/OptimizerDelegate.hpp",
+				"$(SRCROOT)/StringFingering/Optimizer.hpp",
+				"$(SRCROOT)/StringFingering/Optimizer.cpp",
+				"$(SRCROOT)/StringFingering/PathFinder.hpp",
+				"$(SRCROOT)/StringFingering/PathFinder.cpp",
+				"$(SRCROOT)/StringFingering/SingleNoteSequence.hpp",
+				"$(SRCROOT)/StringFingering/SingleNoteSequence.cpp",
+				"$(SRCROOT)/StringFingering/main.cpp",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/cpplint.out",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo > $SCRIPT_OUTPUT_FILE_0\n\nfor ((i = 0; i < $SCRIPT_INPUT_FILE_COUNT; ++i))\ndo\n  filename=SCRIPT_INPUT_FILE_${i}\n  /Library/Frameworks/Python.framework/Versions/3.7/bin/cpplint --output=eclipse --filter=-whitespace/comma ${!filename} >> $SCRIPT_OUTPUT_FILE_0;\ndone\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		819C738D2703764900204F42 /* Sources */ = {

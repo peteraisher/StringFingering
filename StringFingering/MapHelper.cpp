@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  MapHelper.cpp
 //  StringFingering
@@ -5,7 +6,7 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#include "MapHelper.hpp"
+#include "../StringFingering/MapHelper.hpp"
 
 namespace string_fingering {
 

@@ -6,8 +6,8 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#ifndef types_h
-#define types_h
+#ifndef STRINGFINGERING_TYPES_H_
+#define STRINGFINGERING_TYPES_H_
 
 
 #include <cstdint>
@@ -22,4 +22,4 @@ typedef int8_t string_t;
 
 }   // namespace string_fingering
 
-#endif /* types_h */
+#endif  // STRINGFINGERING_TYPES_H_

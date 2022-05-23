@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  PathFinder.cpp
 //  StringFingering
@@ -5,7 +6,8 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#include "PathFinder.hpp"
+#include "../StringFingering/PathFinder.hpp"
+#include <limits>
 
 namespace string_fingering {
 
@@ -30,7 +32,8 @@ void PathFinder::setFirstPitch(uint8_t pitch) {
       positions.current(string) = pos;
     }
     for (int finger = 0; finger < kFingerCount; ++finger) {
-      scores.current(string, finger) = delegate->rawPositionScore(pos, string, finger);
+      scores.current(string, finger) =
+        delegate->rawPositionScore(pos, string, finger);
     }
   }
 }
@@ -56,10 +59,11 @@ void PathFinder::resetBests() {
   best_score = std::numeric_limits<score_t>::max();
 }
 
-void PathFinder::evaluatePreviousFinger(int fPrev, int sPrev) {
-  string_t stringDiff = string - sPrev;
+void PathFinder::evaluatePreviousFingerAndUpdateBest(int fPrev, int sPrev) {
+  string_t stringDiff = currentString - sPrev;
   score_t fingerScore = stringScore
-  + delegate->fingerChangePenalty(posPrev, pos, fPrev, finger, stringDiff)
+  + delegate->fingerChangePenalty(posPrev, pos,
+                                  fPrev, currentFinger, stringDiff)
   + scores.previous(sPrev, fPrev);
   if (fingerScore < best_score) {
     best_score = fingerScore;
@@ -68,19 +72,19 @@ void PathFinder::evaluatePreviousFinger(int fPrev, int sPrev) {
   }
 }
 
-void PathFinder::evaluatePreviousString(int sPrev) {
+void PathFinder::evaluatePreviousStringAndUpdateBest(int sPrev) {
   posPrev = positions.previous(sPrev);
   if (posPrev < 0) {
     return;   // previous pitch was not playable on previous string
   }
-  stringScore = delegate->stringCrossPenalty(string - sPrev) + rawScore;
+  stringScore = delegate->stringCrossPenalty(currentString - sPrev) + rawScore;
   if (stringScore >= best_score) {
     return;   // all possible scores are >= stringScore so also >= best_score
   }
 
   for (int fPrev = 0; fPrev < kFingerCount; ++fPrev) {
     // compare position difference to finger difference
-    evaluatePreviousFinger(fPrev, sPrev);
+    evaluatePreviousFingerAndUpdateBest(fPrev, sPrev);
   }
 }
 
@@ -94,38 +98,38 @@ void PathFinder::setNeverScoreIfNothingFound() {
 
 void PathFinder::storeBestScoreInMap() {
   map_t prev_pointer = (best_finger << kStringBits) | best_string;
-  scores.current(string, finger) = best_score;
-  map.value(index, string, finger) = prev_pointer;
+  scores.current(currentString, currentFinger) = best_score;
+  map.value(index, currentString, currentFinger) = prev_pointer;
 }
 
 void PathFinder::findAndStoreBestTransitionToCurrentStringAndFinger() {
-  rawScore = delegate->rawPositionScore(pos, string, finger);
+  rawScore = delegate->rawPositionScore(pos, currentString, currentFinger);
   resetBests();
   for (int sPrev = 0; sPrev < stringCount; ++sPrev) {
-    evaluatePreviousString(sPrev); // end for fPrev
-  } // end for sPrev
+    evaluatePreviousStringAndUpdateBest(sPrev);
+  }
   setNeverScoreIfNothingFound();
   storeBestScoreInMap();
 }
 
-void PathFinder::evaluateScoresForString() {
+void PathFinder::evaluateAndStoreScoresForString() {
   if (pos < 0) {
-    markStringAsImpossibleForCurrentPitch(string);
+    markStringAsImpossibleForCurrentPitch(currentString);
     return;
   }
-  positions.current(string) = pos;
+  positions.current(currentString) = pos;
 
-  for (finger = 0; finger < kFingerCount; ++finger) {
+  for (currentFinger = 0; currentFinger < kFingerCount; ++currentFinger) {
     findAndStoreBestTransitionToCurrentStringAndFinger();
   }
 }
 
 void PathFinder::appendPitch(uint8_t pitch) {
   advanceHelperVariables();
-  for (string = 0; string < stringCount; ++string) {
-    pos = pitch - delegate->openStringPitch(string);
-    evaluateScoresForString();
-  } // end for s
+  for (currentString = 0; currentString < stringCount; ++currentString) {
+    pos = pitch - delegate->openStringPitch(currentString);
+    evaluateAndStoreScoresForString();
+  }
 }
 
 void PathFinder::findBestFingerAndStringForCurrentPitch() {
@@ -147,9 +151,9 @@ void PathFinder::readPreviousBestFingerAndStringFromMap(size_t i) {
 }
 
 void PathFinder::setFingeringFromBestAtIndex(size_t i,
-                                             FingeringSequence &result) {
-  result.setFinger(i, best_finger);
-  result.setString(i, best_string);
+                                             FingeringSequence* result) {
+  result->setFinger(i, best_finger);
+  result->setString(i, best_string);
 }
 
 FingeringSequence PathFinder::readOutput() {
@@ -157,10 +161,10 @@ FingeringSequence PathFinder::readOutput() {
   findBestFingerAndStringForCurrentPitch();
   FingeringSequence result = FingeringSequence(index + 1);
   for (size_t i = index; i > 0; --i) {
-    setFingeringFromBestAtIndex(i, result);
+    setFingeringFromBestAtIndex(i, &result);
     readPreviousBestFingerAndStringFromMap(i);
   }
-  setFingeringFromBestAtIndex(0, result);
+  setFingeringFromBestAtIndex(0, &result);
   return result;
 }
 

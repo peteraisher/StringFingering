@@ -6,13 +6,13 @@
 //  Created by Peter Aisher on 28.09.21.
 //
 
-#include "Optimizer.hpp"
-#include "BasicDelegate.hpp"
-#include "SingleNoteSequence.hpp"
-#include "FingeringSequence.hpp"
 #include <stdio.h>
 #include <array>
 #include <string>
+#include "../StringFingering/Optimizer.hpp"
+#include "../StringFingering/BasicDelegate.hpp"
+#include "../StringFingering/SingleNoteSequence.hpp"
+#include "../StringFingering/FingeringSequence.hpp"
 
 void printNoteNameAndOctave(uint8_t pitch) {
   std::string names[12] = {"C", "C#", "D", "D#", "E", "F",

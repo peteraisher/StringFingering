@@ -6,9 +6,9 @@
 //  Created by Peter Aisher on 29.09.21.
 //
 
-#include "Optimizer.hpp"
-#include "PathFinder.hpp"
 #include <vector>
+#include "../StringFingering/Optimizer.hpp"
+#include "../StringFingering/PathFinder.hpp"
 
 namespace string_fingering {
 

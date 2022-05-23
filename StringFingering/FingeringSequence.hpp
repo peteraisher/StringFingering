@@ -6,18 +6,20 @@
 //  Created by Peter Aisher on 28.09.21.
 //
 
-#ifndef FingeringSequence_hpp
-#define FingeringSequence_hpp
+#ifndef STRINGFINGERING_FINGERINGSEQUENCE_HPP_
+#define STRINGFINGERING_FINGERINGSEQUENCE_HPP_
 
 #include <cstdint>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
 namespace string_fingering {
 
 class FingeringSequence {
   std::vector<uint8_t> string;
   std::vector<uint8_t> finger;
+
  public:
   FingeringSequence(const std::vector<uint8_t>& string_in,
                     const std::vector<uint8_t>& finger_in) {
@@ -44,4 +46,4 @@ class FingeringSequence {
 
 }   // namespace string_fingering
 
-#endif /* FingeringSequence_hpp */
+#endif  // STRINGFINGERING_FINGERINGSEQUENCE_HPP_

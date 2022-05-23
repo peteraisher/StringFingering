@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  MapHelper.hpp
 //  StringFingering
@@ -5,11 +6,11 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#ifndef MapHelper_hpp
-#define MapHelper_hpp
+#ifndef STRINGFINGERING_MAPHELPER_HPP_
+#define STRINGFINGERING_MAPHELPER_HPP_
 
 #include <cstddef>
-#include "types.h"
+#include "../StringFingering/types.h"
 
 namespace string_fingering {
 
@@ -24,9 +25,9 @@ class MapHelper {
  public:
   MapHelper(size_t noteCount, size_t stringCount);
   ~MapHelper();
-  map_t& value(size_t index, size_t string, size_t finger);
+  map_t& value(size_t index, size_t onString, size_t finger);
 };
 
 }   // namespace string_fingering
 
-#endif /* MapHelper_hpp */
+#endif  // STRINGFINGERING_MAPHELPER_HPP_

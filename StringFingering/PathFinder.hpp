@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  PathFinder.hpp
 //  StringFingering
@@ -5,15 +6,15 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#ifndef PathFinder_hpp
-#define PathFinder_hpp
+#ifndef STRINGFINGERING_PATHFINDER_HPP_
+#define STRINGFINGERING_PATHFINDER_HPP_
 
 #include <cstddef>
-#include "OptimizerDelegate.hpp"
-#include "MapHelper.hpp"
-#include "PositionCacheHelper.hpp"
-#include "ScoreCacheHelper.hpp"
-#include "FingeringSequence.hpp"
+#include "../StringFingering/OptimizerDelegate.hpp"
+#include "../StringFingering/MapHelper.hpp"
+#include "../StringFingering/PositionCacheHelper.hpp"
+#include "../StringFingering/ScoreCacheHelper.hpp"
+#include "../StringFingering/FingeringSequence.hpp"
 
 namespace string_fingering {
 
@@ -33,8 +34,8 @@ class PathFinder {
   position_t posPrev = 0;
   string_t best_string = 0;
   finger_t best_finger = 0;
-  int string = 0;
-  int finger = 0;
+  int currentString = 0;
+  int currentFinger = 0;
 
   enum {
     kFingerCount = 5
@@ -42,16 +43,17 @@ class PathFinder {
   void markStringAsImpossibleForCurrentPitch(int s);
   void advanceHelperVariables();
   void resetBests();
-  void evaluatePreviousFinger(int fPrev, int sPrev);
-  void evaluatePreviousString(int sPrev);
+  void evaluatePreviousFingerAndUpdateBest(int fPrev, int sPrev);
+  void evaluatePreviousStringAndUpdateBest(int sPrev);
   void setNeverScoreIfNothingFound();
   void storeBestScoreInMap();
   void findAndStoreBestTransitionToCurrentStringAndFinger();
-  void evaluateScoresForString();
+  void evaluateAndStoreScoresForString();
   void findBestFingerAndStringForCurrentPitch();
   void readPreviousBestFingerAndStringFromMap(size_t i);
-  void setFingeringFromBestAtIndex(size_t i, FingeringSequence &result);
-public:
+  void setFingeringFromBestAtIndex(size_t i, FingeringSequence* result);
+
+ public:
   PathFinder(size_t noteCount, OptimizerDelegate* delegate);
   void setFirstPitch(uint8_t pitch);
   void appendPitch(uint8_t pitch);
@@ -60,4 +62,4 @@ public:
 
 }   // namespace string_fingering
 
-#endif /* PathFinder_hpp */
+#endif  // STRINGFINGERING_PATHFINDER_HPP_

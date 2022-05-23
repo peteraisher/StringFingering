@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  StringFingering.cpp
 //  StringFingering
@@ -6,19 +7,18 @@
 //
 
 #include "StringFingering.hpp"
-#include <cstdint>
 #include <stdio.h>
+#include <cstdint>
 
 
 FingeringSequence
 StringFingering::optimalFingeringFor(const SingleNoteSequence& noteSequence) {
-
   auto pitches = noteSequence.getPitches();
   size_t count = noteSequence.getCount();
 
   score_t scores[2][kStringCount][kFingerCount] = {};
   position_t positions[2][kStringCount] = {};
-  auto map = new map_t [count][kStringCount][kFingerCount];
+  auto map = new map_t[count][kStringCount][kFingerCount];
 
   uint8_t pitch = pitches[0];
 
@@ -92,8 +92,8 @@ StringFingering::optimalFingeringFor(const SingleNoteSequence& noteSequence) {
               best_string = sPrev;
               best_finger = fPrev;
             }
-          } // end for fPrev
-        } // end for sPrev
+          }   // end for fPrev
+        }   // end for sPrev
         if (best_string == -1
             || best_finger == -1
             || best_score == kPenaltyMax) {
@@ -102,11 +102,11 @@ StringFingering::optimalFingeringFor(const SingleNoteSequence& noteSequence) {
         map_t prev_pointer = (best_finger << kFingerBitShift) | best_string;
         scores[current][s][f] = best_score;
         map[i][s][f] = prev_pointer;
-      } // end for f
-    } // end for s
-
-  } // end for i
-  // now have map complete and can trace back to find best set of strings and fingerings
+      }   // end for f
+    }   // end for s
+  }   // end for i
+  // now have map complete and can trace back to find
+  // best set of strings and fingerings
   string_t best_string = -1;
   finger_t best_finger = -1;
   score_t best_score = kPenaltyMax;

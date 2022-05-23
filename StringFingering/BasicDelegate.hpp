@@ -6,10 +6,11 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#ifndef BasicDelegate_hpp
-#define BasicDelegate_hpp
+#ifndef STRINGFINGERING_BASICDELEGATE_HPP_
+#define STRINGFINGERING_BASICDELEGATE_HPP_
 
-#include "Optimizer.hpp"
+#include <limits>
+#include "../StringFingering/Optimizer.hpp"
 
 namespace string_fingering {
 
@@ -24,24 +25,24 @@ class BasicDelegate : public OptimizerDelegate {
   enum {
     kPositionCount = 32
   };
-public:
-  virtual uint8_t openStringPitch(size_t string) override;
-  /// \note value is not assumed to be stable between calls with same parameter values
-  virtual score_t rawPositionScore(position_t pos, string_t string,
+
+ public:
+  uint8_t openStringPitch(size_t forString) override;
+  /// \note value is not assumed to be stable between calls
+  score_t rawPositionScore(position_t pos, string_t onString,
                                    finger_t finger) override;
-  /// \note value is not assumed to be stable between calls with same parameter values
-  virtual score_t stringCrossPenalty(string_t diff) override;
-  /// \note value is not assumed to be stable between calls with same parameter values
-  virtual score_t fingerChangePenalty(position_t startPos, position_t endPos,
+  /// \note value is not assumed to be stable between calls
+  score_t stringCrossPenalty(string_t diff) override;
+  /// \note value is not assumed to be stable between calls
+  score_t fingerChangePenalty(position_t startPos, position_t endPos,
                                       finger_t startFinger, finger_t endFinger,
                                       string_t stringDiff) override;
-  virtual score_t never() const override {return kPenaltyNever;}
-  virtual void nextNote() override;
-  virtual void reset() override;
-  virtual int stringCount() override;
+  score_t never() const override {return kPenaltyNever;}
+  void nextNote() override;
+  void reset() override;
+  int stringCount() override;
 
-private:
-
+ private:
   position_t minDistanceToUpperFinger(finger_t finger) const;
   position_t maxDistanceToUpperFinger(finger_t finger) const;
   position_t minDistanceToLowerFinger(finger_t finger) const;
@@ -63,4 +64,4 @@ private:
 
 }   // namespace string_fingering
 
-#endif /* BasicDelegate_hpp */
+#endif  // STRINGFINGERING_BASICDELEGATE_HPP_

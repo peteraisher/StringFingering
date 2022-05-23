@@ -6,27 +6,27 @@
 //  Created by Peter Aisher on 29.09.21.
 //
 
-#ifndef StringFingeringOptimizer_hpp
-#define StringFingeringOptimizer_hpp
-
-#include "OptimizerDelegate.hpp"
-#include "SingleNoteSequence.hpp"
-#include "FingeringSequence.hpp"
-#include "types.h"
+#ifndef STRINGFINGERING_OPTIMIZER_HPP_
+#define STRINGFINGERING_OPTIMIZER_HPP_
 
 #include <cstdint>
 #include <limits>
+#include "../StringFingering/OptimizerDelegate.hpp"
+#include "../StringFingering/SingleNoteSequence.hpp"
+#include "../StringFingering/FingeringSequence.hpp"
+#include "../StringFingering/types.h"
+
 
 namespace string_fingering {
 
 class Optimizer {
-public:
-  Optimizer(OptimizerDelegate* delegate);
+ public:
+  explicit Optimizer(OptimizerDelegate* delegate);
   FingeringSequence calculate(const SingleNoteSequence& sequence);
-private:
+ private:
   OptimizerDelegate* delegate;
 };
 
 }   // namespace string_fingering
 
-#endif /* StringFingeringOptimizer_hpp */
+#endif  // STRINGFINGERING_OPTIMIZER_HPP_

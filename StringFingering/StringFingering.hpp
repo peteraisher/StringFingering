@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  StringFingering.hpp
 //  StringFingering
@@ -5,19 +6,19 @@
 //  Created by Peter Aisher on 28.09.21.
 //
 
-#ifndef StringFingering_hpp
-#define StringFingering_hpp
+#ifndef STRINGFINGERING_STRINGFINGERING_HPP_
+#define STRINGFINGERING_STRINGFINGERING_HPP_
 
-#include "FingeringSequence.hpp"
-#include "SingleNoteSequence.hpp"
 #include <cstdint>
 #include <cassert>
 #include <limits>
+#include "FingeringSequence.hpp"
+#include "SingleNoteSequence.hpp"
 
 
 
 class StringFingering {
-public:
+ public:
   StringFingering() {
     initRawPositionScores();
   }
@@ -25,8 +26,7 @@ public:
   FingeringSequence
   optimalFingeringFor(const SingleNoteSequence& noteSequence);
 
-private:
-
+ private:
   typedef int32_t score_t;
   typedef int8_t position_t;
   typedef int8_t map_t;
@@ -153,7 +153,7 @@ private:
       return kPositionCount;
     if (!end) return 0;
     if (!start || !end) {
-      return kPositionCount; // to or from open string
+      return kPositionCount;  // to or from open string
     }
     finger_t diff = end - start;
     switch (diff) {
@@ -190,7 +190,7 @@ private:
     return 8;
   }
 
-public:
+ public:
   inline score_t rawPositionScore(position_t pos, string_t string,
                                   finger_t finger) const {
     return mRawPositionScores[pos][string][finger];
@@ -216,7 +216,6 @@ private:
     kStringMask = 3,
     kFingerBitShift = 2,
   };
-
 };
 
-#endif /* StringFingering_hpp */
+#endif  // STRINGFINGERING_STRINGFINGERING_HPP_

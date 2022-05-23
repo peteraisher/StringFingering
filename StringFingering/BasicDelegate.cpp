@@ -6,16 +6,17 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#include "BasicDelegate.hpp"
+#include "../StringFingering/BasicDelegate.hpp"
 
 namespace string_fingering {
 
-uint8_t BasicDelegate::openStringPitch(size_t string) {
+uint8_t BasicDelegate::openStringPitch(size_t forString) {
   static constexpr uint8_t open_pitches[4] = {76, 69, 62, 55};
-  return open_pitches[string];
+  return open_pitches[forString];
 }
 
-score_t BasicDelegate::rawPositionScore(position_t pos, string_t string, finger_t finger) {
+score_t BasicDelegate::rawPositionScore(position_t pos, string_t string,
+                                        finger_t finger) {
   if (pos == 0) {
     if (finger) { return kPenaltyNever; }
     return openStringPenalty();

@@ -1,3 +1,4 @@
+//  Copyright (c) 2022 Peter Aisher
 //
 //  ScoreCacheHelper.cpp
 //  StringFingering
@@ -5,7 +6,7 @@
 //  Created by Peter Aisher on 20.05.2022.
 //
 
-#include "ScoreCacheHelper.hpp"
+#include "../StringFingering/ScoreCacheHelper.hpp"
 
 namespace string_fingering {
 
