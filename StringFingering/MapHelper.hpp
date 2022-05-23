@@ -14,6 +14,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 class MapHelper {
   map_t* storage = nullptr;
   size_t stringCount;
@@ -27,6 +29,8 @@ class MapHelper {
   ~MapHelper();
   map_t& value(size_t index, size_t onString, size_t finger);
 };
+
+}   // namespace impl
 
 }   // namespace string_fingering
 

@@ -14,6 +14,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 class PositionCacheHelper {
   position_t* storage = nullptr;
   size_t currentIndex = 0;
@@ -25,6 +27,8 @@ class PositionCacheHelper {
   position_t& current(size_t onString);
   position_t& previous(size_t onString);
 };
+
+}   // namespace impl
 
 }   // namespace string_fingering
 

@@ -10,6 +10,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 ScoreCacheHelper::ScoreCacheHelper(size_t stringCount)
 : stringCount(stringCount) {
   storage = new score_t[stringCount * kFingerCount * 2]();
@@ -27,5 +29,7 @@ score_t& ScoreCacheHelper::previous(size_t string, size_t finger) {
 }
 
 void ScoreCacheHelper::next() {currentIndex ^= 1;}
+
+}   // namespace impl
 
 }   // namespace string_fingering

@@ -11,6 +11,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 PathFinder::PathFinder(size_t noteCount,
                        OptimizerDelegate* delegate)
 : delegate(delegate), stringCount(delegate->stringCount()),
@@ -167,5 +169,7 @@ FingeringSequence PathFinder::readOutput() {
   setFingeringFromBestAtIndex(0, &result);
   return result;
 }
+
+}   // namespace impl
 
 }   // namespace string_fingering

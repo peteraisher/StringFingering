@@ -10,6 +10,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 PositionCacheHelper::PositionCacheHelper(size_t stringCount)
 : stringCount(stringCount) {
   storage = new position_t[stringCount * 2]();
@@ -27,5 +29,7 @@ position_t& PositionCacheHelper::previous(size_t string) {
 }
 
 void PositionCacheHelper::next() {currentIndex ^= 1;}
+
+}   // namespace impl
 
 }   // namespace string_fingering

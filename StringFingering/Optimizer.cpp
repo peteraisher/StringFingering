@@ -16,7 +16,7 @@ Optimizer::Optimizer(OptimizerDelegate* delegate) : delegate(delegate) {}
 
 FingeringSequence Optimizer::calculate(const SingleNoteSequence& sequence) {
   auto count = sequence.getCount();
-  auto pathFinder = PathFinder(count, delegate);
+  auto pathFinder = impl::PathFinder(count, delegate);
   pathFinder.setFirstPitch(sequence[0]);
   for (int i = 1; i < count; ++i) {
     pathFinder.appendPitch(sequence[i]);

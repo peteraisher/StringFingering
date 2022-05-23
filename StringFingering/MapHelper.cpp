@@ -10,6 +10,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 void MapHelper::fillFirstIndexWithInvalid(size_t stringCount) {
   for (size_t s = 0; s < stringCount; ++s) {
     for (size_t f = 0; f < stringCount; ++f) {
@@ -29,5 +31,7 @@ MapHelper::~MapHelper() {
 map_t& MapHelper::value(size_t index, size_t string, size_t finger) {
   return storage[((index * stringCount) + string) * kFingerCount + finger];
 }
+
+}   // namespace impl
 
 }   // namespace string_fingering

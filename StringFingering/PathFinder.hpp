@@ -18,6 +18,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 class PathFinder {
   ScoreCacheHelper scores;
   PositionCacheHelper positions;
@@ -59,6 +61,8 @@ class PathFinder {
   void appendPitch(uint8_t pitch);
   FingeringSequence readOutput();
 };
+
+}   // namespace impl
 
 }   // namespace string_fingering
 

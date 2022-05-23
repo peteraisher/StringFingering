@@ -14,6 +14,8 @@
 
 namespace string_fingering {
 
+namespace impl {
+
 class ScoreCacheHelper {
   score_t* storage = nullptr;
   size_t currentIndex = 0;
@@ -28,6 +30,8 @@ class ScoreCacheHelper {
   score_t& current(size_t onString, size_t finger);
   score_t& previous(size_t onString, size_t finger);
 };
+
+}   // namespace impl
 
 }   // namespace string_fingering
 
